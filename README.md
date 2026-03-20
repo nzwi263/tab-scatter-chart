@@ -1,17 +1,104 @@
-# React + TypeScript + Vite
+# Tab Scatter Chart
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript + Vite application for visualizing statistical benchmarking data using interactive scatter charts. This project provides reusable components for displaying business metrics like Revenue Growth vs MRR with percentile comparisons.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **ScatterChart** – Interactive scatter plot component with D3.js-powered visualizations
+- **ChartCard** – Container component with title, description, and status badges
+- **Badge** – Status indicators (Live, Top 10%, Bottom 25%)
+- **Statistical Data Support** – Display Q1, Median, Q3, and user values
+- **Responsive Design** – Built with Tailwind CSS v4
+- **Animations** – Smooth interactions powered by Framer Motion
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework:** React 19 + TypeScript
+- **Build Tool:** Vite 8
+- **Styling:** Tailwind CSS 4 + @tailwindcss/vite
+- **Data Visualization:** D3.js 7
+- **Animations:** Framer Motion
+- **Linting:** ESLint 9 + typescript-eslint
 
-## Expanding the ESLint configuration
+## Project Structure
+
+```
+tab-scatter-chart/
+├── public/
+│   ├── favicon.svg
+│   └── icons.svg
+├── src/
+│   ├── components/
+│   │   ├── Badge.tsx          # Status badge component
+│   │   ├── ChartCard.tsx      # Chart container with header
+│   │   ├── ScatterChart.tsx   # Main scatter plot component
+│   │   └── index.ts           # Component exports
+│   ├── assets/
+│   │   └── hero.png
+│   ├── App.tsx                # Main application
+│   ├── main.tsx               # Entry point
+│   └── index.css              # Global styles
+├── package.json
+├── vite.config.ts
+├── tsconfig.json
+└── eslint.config.js
+```
+
+## Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+
+## Component Usage
+
+### ScatterChart
+
+```tsx
+import { ScatterChart } from './components';
+import type { ChartStatistics } from './components/ScatterChart';
+
+const data: ChartStatistics = {
+  xAxis: { q1: 80102, median: 139250, q3: 139250, userValue: 139250 },
+  yAxis: { q1: 18.57, median: 19.26, q3: 19.26, userValue: 19.26 },
+};
+
+<ScatterChart
+  width={700}
+  height={360}
+  statistics={data}
+  xAxisLabel="MRR (USD)"
+  yAxisLabel="Revenue Growth Rate (%)"
+/>
+```
+
+### ChartCard
+
+```tsx
+import { ChartCard, ScatterChart } from './components';
+
+<ChartCard
+  width={800}
+  height={500}
+  title="Revenue Growth vs MRR"
+  description="Compare your growth rate against peer benchmarks"
+  badgeType="live"
+  badgeText="Live"
+>
+  <ScatterChart {...chartProps} />
+</ChartCard>
+```
+
+### Badge Types
+
+- `live` – Displays a pulsing red dot indicator
+- `top` – Green badge for top performers
+- `bottom` – Gray badge for bottom tier
+
+## Expanding the ESLint Configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
