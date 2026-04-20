@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import youMarker from '../assets/you_marker.svg';
 
 export interface DataPoint {
   /** MRR value in USD */
@@ -327,27 +328,23 @@ export const ScatterChart: React.FC<ScatterChartProps> = ({
                   <React.Fragment key={index}>
                     {/* Data Point with jitter offset */}
                     {isUserValue ? (
-                      // Star marker for user value
-                      <div
-                        className="cursor-pointer transition-transform duration-200 flex items-center justify-center"
+                      // "You" marker image for user value
+                      <img
+                        src={youMarker}
+                        alt="You"
+                        className="cursor-pointer transition-transform duration-200"
                         style={{
                           position: 'absolute',
-                          width: '28px',
-                          height: '28px',
-                          left: x - 14 + jitterOffsets[index].x,
-                          top: y - 14 + jitterOffsets[index].y,
-                          color: point.color,
+                          width: '41px',
+                          height: '41px',
+                          left: x - 20.5 + jitterOffsets[index].x,
+                          top: y - 20.5 + jitterOffsets[index].y,
                           transform: isHovered ? 'scale(1.3)' : 'scale(1)',
                           zIndex: isHovered ? 20 : 10,
-                          filter: 'drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.3))',
                         }}
                         onMouseEnter={() => setHoveredPoint(index)}
                         onMouseLeave={() => setHoveredPoint(null)}
-                      >
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                      </div>
+                      />
                     ) : (
                       // Circle marker for other points
                       <div
@@ -399,9 +396,7 @@ export const ScatterChart: React.FC<ScatterChartProps> = ({
                           {/* Tooltip Header */}
                           <div className="flex items-center gap-2">
                             {point.isUserValue ? (
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill={point.color}>
-                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                              </svg>
+                              <img src={youMarker} alt="You" width="14" height="14" />
                             ) : (
                               <div
                                 style={{
@@ -546,14 +541,7 @@ export const ScatterChart: React.FC<ScatterChartProps> = ({
         {chartData.map((point, index) => (
           <div key={index} className="flex items-center gap-2">
             {point.isUserValue ? (
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 24 24"
-                fill={point.color}
-              >
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-              </svg>
+              <img src={youMarker} alt="You" width="14" height="14" />
             ) : (
               <div
                 style={{
